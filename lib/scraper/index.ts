@@ -33,16 +33,20 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			"in stock";
 		const discountPercentage = $(".savingsPercentage")
 			.text()
-			.replace(/[-%]/, "");
+            .replace(/[-%]/g, "");
+        const reviewCount = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
+        // const stars = $('span.a-size-base.a-color-base').eq(1).text().trim();
         const data = {
             url : productUrl,
 			title : productTitle,
 			currentPrice : Number(currentPrice),
-			originalPrice : Number(originalPrice),
+			originalPrice : originalPrice ? Number(originalPrice) : Number(currentPrice),
 			image : images,
 			isOutOfStock : outOfStock,
 			currency : currency || '₹',
-			discountPercentage,
+            discountPercentage: discountPercentage ? Number(discountPercentage) : 0,
+            reviewCount,
+            // stars
         };
         return data;
 	} catch (error: any) {
