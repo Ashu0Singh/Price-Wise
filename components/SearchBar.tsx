@@ -1,10 +1,11 @@
 "use client";
 
+import { scrapeAndStoreProduct } from "@/lib/actions";
 import React, { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const SearchBar = () => {
-	const [searchPrompt, setSearchPrompt] = useState("");
+	const [searchPrompt, setSearchPrompt] = useState("https://www.amazon.in/ASUS-PA278QV-DisplayPort-Anti-Glare-Adjustable/dp/B088BC5HMM");
 	const [isLoading, setIsLoading] = useState(false);
 
 	const isValidAmazonUrl = (url: string) => {
@@ -23,12 +24,13 @@ const SearchBar = () => {
 		}
 		return false;
 	};
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const isValidUrl = isValidAmazonUrl(searchPrompt);
 		if (!isValidUrl) return toast.error("Enter a valid amazon URL");
 		try {
 			setIsLoading(true);
+			const product = await scrapeAndStoreProduct(searchPrompt);
 		} catch (error) {
 		} finally {
 			setIsLoading(false);
