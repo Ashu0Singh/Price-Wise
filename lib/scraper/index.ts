@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { extractCurrency, extractPrice, getImageArray } from "../utils";
+import { extractCurrency, extractDescription, extractPrice, getImageArray } from "../utils";
 
 export const scrapAmazonProducts = async (productUrl: string) => {
 	const username = String(process.env.BRIGHT_DATA_USERNAME);
@@ -34,19 +34,24 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 		const discountPercentage = $(".savingsPercentage")
 			.text()
             .replace(/[-%]/g, "");
-        const reviewCount = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
+		const reviewCount = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
+		const description = extractDescription($);
         // const stars = $('span.a-size-base.a-color-base').eq(1).text().trim();
-        const data = {
-            url : productUrl,
-			title : productTitle,
-			currentPrice : Number(currentPrice),
-			originalPrice : originalPrice ? Number(originalPrice) : Number(currentPrice),
-			image : images,
-			isOutOfStock : outOfStock,
-			currency : currency || '₹',
-            discountPercentage: discountPercentage ? Number(discountPercentage) : 0,
-            reviewCount,
-            // stars
+		const data = {
+			url: productUrl,
+			title: productTitle,
+			currentPrice: Number(currentPrice),
+			originalPrice: originalPrice ? Number(originalPrice) : Number(currentPrice),
+			image: images,
+			isOutOfStock: outOfStock,
+			currency: currency || '₹',
+			discountPercentage: discountPercentage ? Number(discountPercentage) : 0,
+			reviewCount,
+			stars: 4.2,
+			description,
+			lowestPrice: Number(currentPrice) || Number(originalPrice),
+			highestPrice: Number(originalPrice) || Number(currentPrice),
+			averagePrice: Number(currentPrice) || Number(originalPrice),
         };
         return data;
 	} catch (error: any) {
