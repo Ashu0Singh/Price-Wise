@@ -42,7 +42,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			title: productTitle,
 			currentPrice: Number(currentPrice),
 			originalPrice: originalPrice ? Number(originalPrice) : Number(currentPrice),
-			image: images,
+			image: images[0],
 			isOutOfStock: outOfStock,
 			currency: currency || '₹',
 			discountPercentage: discountPercentage ? Number(discountPercentage) : 0,
