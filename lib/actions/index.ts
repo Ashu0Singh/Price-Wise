@@ -49,9 +49,18 @@ export async function getProductsById(id: String) {
 	try {
 		connectToDb();
 		const product = await Products.findOne({ _id: id });
-		console.log(product);
 		return product;
 	} catch (error: any) {
-		console.log(`-> Failed to fetch product : ${error.message}`);
+		console.log(`-> Failed to fetch product by Id : ${error.message}`);
+	}
+}
+
+export async function getAllProducts() {
+	try {
+		connectToDb();
+		const products = await Products.find();
+		return products;
+	} catch (error: any) {
+		console.log(`-> Failed to fetch all products : ${error.message}`);
 	}
 }
