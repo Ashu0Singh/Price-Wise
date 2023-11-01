@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { extractCurrency, extractDescription, extractPrice, getImageArray } from "../utils";
+import fs from 'fs'
+import { extractCategory, extractCurrency, extractDescription, extractPrice, getImageArray } from "../utils";
 
 export const scrapAmazonProducts = async (productUrl: string) => {
 	const username = String(process.env.BRIGHT_DATA_USERNAME);
@@ -19,6 +20,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 
 	try {
 		const response = await axios.get(productUrl, option);
+		fs.writeFileSync('./respose.html', JSON.stringify(response.data));
 		const $ = cheerio.load(response.data);
 		const productTitle = $("#productTitle").text().trim();
 		const currentPrice = extractPrice($("span.a-price-whole").eq(1));
@@ -26,7 +28,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			$("span.a-text-price > span.a-offscreen")
 		);
 
-		const images = getImageArray($("#landingImage"));
+		const images = getImageArray($("img#landingImage"));
 		const currency = extractCurrency($(".a-price-symbol"));
 		const outOfStock =
 			$("#availability > span").text().trim().toLowerCase() !==
@@ -36,6 +38,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
             .replace(/[-%]/g, "");
 		const reviewCount = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
 		const description = extractDescription($);
+		const category = extractCategory($('a.a-color-tertiary'));
         // const stars = $('span.a-size-base.a-color-base').eq(1).text().trim();
 		const data = {
 			url: productUrl,
@@ -48,6 +51,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			discountRate: discountRate ? Number(discountRate) : 0,
 			reviewCount,
 			stars: 4.2,
+			category,
 			description,
 			lowestPrice: Number(currentPrice) || Number(originalPrice),
 			highestPrice: Number(originalPrice) || Number(currentPrice),

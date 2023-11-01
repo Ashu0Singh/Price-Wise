@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 * {
 	margin: 0;
@@ -91,7 +91,7 @@
 	}
 
 	.dialog-content {
-		@apply p-6  bg-white inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform  shadow-xl rounded-2xl;
+		@apply p-6 bg-white inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform  shadow-xl rounded-2xl;
 	}
 
 	.dialog-head_text {
@@ -130,7 +130,7 @@
 	}
 
 	.product-card_img-container {
-		@apply flex-1 relative flex flex-col gap-5 p-4 rounded-md;
+		@apply mx-auto flex-1 relative flex flex-col gap-5 p-4 rounded-md;
 	}
 
 	.product-card_img {
