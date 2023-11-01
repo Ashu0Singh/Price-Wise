@@ -31,7 +31,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 		const outOfStock =
 			$("#availability > span").text().trim().toLowerCase() !==
 			"in stock";
-		const discountPercentage = $(".savingsPercentage")
+		const discountRate = $(".savingsPercentage")
 			.text()
             .replace(/[-%]/g, "");
 		const reviewCount = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
@@ -45,7 +45,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			image: images[0],
 			isOutOfStock: outOfStock,
 			currency: currency || '₹',
-			discountPercentage: discountPercentage ? Number(discountPercentage) : 0,
+			discountRate: discountRate ? Number(discountRate) : 0,
 			reviewCount,
 			stars: 4.2,
 			description,
