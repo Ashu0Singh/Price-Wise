@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import Products from "../models/products.model";
 import { connectToDb } from "../mongoose";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
+import { redirect } from "next/navigation";
 
 const { scrapAmazonProducts } = require("../scraper/index");
 
@@ -14,12 +15,14 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 		const scrapedProduct = await scrapAmazonProducts(productUrl);
 		if (!scrapedProduct) return;
 		let product = scrapedProduct;
-		const existingProduct = await Products.findOne({ url: scrapedProduct.url });
+		const existingProduct = await Products.findOne({
+			url: scrapedProduct.url,
+		});
 		if (existingProduct !== null) {
 			const updatedProductPrice: any = [
 				...existingProduct.priceHistory,
 				{ price: scrapedProduct.currentPrice },
-            ];
+			];
 			product = {
 				...scrapedProduct,
 				priceHistory: updatedProductPrice,
@@ -27,7 +30,6 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 				highestPrice: getHighestPrice(updatedProductPrice),
 				averagePrice: getAveragePrice(updatedProductPrice),
 			};
-			console.log(product);
 		}
 		const newProduct = await Products.findOneAndUpdate(
 			{ url: scrapedProduct.url },
@@ -37,8 +39,19 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 				new: true,
 			}
 		);
-		revalidatePath(`/products/${newProduct._id}`);
+		revalidatePath(`/product/${newProduct._id}`);
 	} catch (error: any) {
 		throw new Error(`Failed to create/update product : ${error.message}`);
+	}
+}
+
+export async function getProductsById(id: String) {
+	try {
+		connectToDb();
+		const product = await Products.findOne({ _id: id });
+		console.log(product);
+		return product;
+	} catch (error: any) {
+		console.log(`-> Failed to fetch product : ${error.message}`);
 	}
 }
