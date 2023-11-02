@@ -36,7 +36,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
             .replace(/[-%]/g, "");
 		const reviewCount = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
 		const description = extractDescription($);
-		// const category = extractCategory($('a.a-color-tertiary'));
+		const category = extractCategory($('a.a-color-tertiary').last());
         // const stars = $('span.a-size-base.a-color-base').eq(1).text().trim();
 		const data = {
 			url: productUrl,
@@ -49,7 +49,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			discountRate: discountRate ? Number(discountRate) : 0,
 			reviewCount,
 			stars: 4.2,
-			category: "Category",
+			category,
 			description,
 			lowestPrice: Number(currentPrice) || Number(originalPrice),
 			highestPrice: Number(originalPrice) || Number(currentPrice),

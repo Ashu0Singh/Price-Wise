@@ -4,7 +4,7 @@ import React from "react";
 const Product = async ({ params }: { params: { id: String } }) => {
     try {
         const product = await getProductsById(params.id);
-        return <div>{product.title}</div>;
+        return <div>{product.url}</div>;
     } catch (error) {
         console.log(error);
     }

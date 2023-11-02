@@ -118,12 +118,11 @@ export const formatNumber = (num: number = 0) => {
 };
 
 export function extractCategory(categories: any) {
-	let catVal = "Category";
-	for (const category of categories) {
-		console.log(category);
-		catVal = category;
-	}
-	return catVal;
+	let catVal;
+	for (const cat of categories)
+		catVal = cat;
+	const category = catVal.children[0].data.trim();
+	return category;
 }
 
 export function getImageArray(images: any) {
