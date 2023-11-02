@@ -1,5 +1,4 @@
 import { PriceHistoryItem, Product } from "@/types";
-import fs from 'fs'
 
 const Notification = {
 	WELCOME: "WELCOME",
@@ -119,9 +118,12 @@ export const formatNumber = (num: number = 0) => {
 };
 
 export function extractCategory(categories: any) {
+	let catVal = "Category";
 	for (const category of categories) {
 		console.log(category);
+		catVal = category;
 	}
+	return catVal;
 }
 
 export function getImageArray(images: any) {
