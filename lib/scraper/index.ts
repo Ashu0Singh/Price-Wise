@@ -45,7 +45,6 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 		);
 		const stars = extractStars($('i.cm-cr-review-stars-spacing-big > span.a-icon-alt'));
 
-		console.log(stars);
 		const images = getImageArray($("img#landingImage"));
 		const currency = extractCurrency($(".a-price-symbol"));
 		const outOfStock =
