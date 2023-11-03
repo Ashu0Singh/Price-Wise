@@ -1,3 +1,4 @@
+import PriceInfoComponent from "@/components/PriceInfoComponent";
 import { getProductsById } from "@/lib/actions";
 import { formatNumber } from "@/lib/utils";
 import { Product } from "@/types";
@@ -72,8 +73,66 @@ const Product = async ({ params }: { params: { id: String } }) => {
 							</p>
 							<p className="text-[21px] text-black opacity-50 line-through">
 								{product.currency}{" "}
-								{formatNumber(product.originalPrice)}
+								{product.originalPrice}
 							</p>
+						</div>
+						<div className="flex flex-col gap-4">
+							<div className="flex gap-3">
+								<div className="product-stars">
+									<Image
+										src={"/assets/icons/star.svg"}
+										alt="Rating"
+										width={16}
+										height={16}
+									/>
+									<p className="text-sm text-primary-orange font-semibold">
+										{product.stars}
+									</p>
+								</div>
+								<div className="product-reviews">
+									<Image
+										src={"/assets/icons/comment.svg"}
+										alt="Comments"
+										width={16}
+										height={16}
+									/>
+									<p className="text-sm text-secondary font-semibold">
+										{product.reviewCounts} Reviews
+									</p>
+								</div>
+							</div>
+							<p className="text-sm text-black opacity-50">
+								<span className="text-primary-green font-semibold">93%</span> of buyers have recommended
+							</p>
+						</div>
+					</div>
+
+					<div className="my-7 flex flex-col gap-5">
+						<div className="flex gap-5 flex-wrap">
+							<PriceInfoComponent
+								title={"Current Price"}
+								iconSrc={"/assets/icons/price-tag.svg"}
+								value={`${product.currency} ${formatNumber(product.currentPrice)}`}
+								borderColor="#b6dbff"
+							/>
+							<PriceInfoComponent
+								title={"Average Price"}
+								iconSrc={"/assets/icons/chart.svg"}
+								value={`${product.currency} ${formatNumber(product.averagePrice)}`}
+								borderColor="#b6dbff"
+							/>
+							<PriceInfoComponent
+								title={"Highest Price"}
+								iconSrc={"/assets/icons/arrow-up.svg"}
+								value={`${product.currency} ${formatNumber(product.highestPrice)}`}
+								borderColor="#b6dbff"
+							/>
+							<PriceInfoComponent
+								title={"Lowest Price"}
+								iconSrc={"/assets/icons/arrow-down.svg"}
+								value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
+								borderColor="#b6dbff"
+							/>
 						</div>
 					</div>
 				</div>

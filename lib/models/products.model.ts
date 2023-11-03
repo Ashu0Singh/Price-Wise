@@ -14,6 +14,7 @@ const ProductSchema = new mongoose.Schema(
 				date: { type: Date, default: Date.now },
 			},
 		],
+		stars: { type: Number },
 		lowestPrice: { type: Number },
 		highestPrice: { type: Number },
 		averagePrice: { type: Number },
