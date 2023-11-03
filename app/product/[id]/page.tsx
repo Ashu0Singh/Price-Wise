@@ -1,12 +1,13 @@
 import { getProductsById } from "@/lib/actions";
+import { formatNumber } from "@/lib/utils";
+import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
 const Product = async ({ params }: { params: { id: String } }) => {
-	const product = await getProductsById(params.id);
-
+	const product: Product = await getProductsById(params.id);
 	if (!product) return redirect("/");
 	return (
 		<div className="product-container">
@@ -25,10 +26,54 @@ const Product = async ({ params }: { params: { id: String } }) => {
 						<div className="flex flex-col gap-3">
 							<p className="text-[24px] text-secondary font-semibold">
 								{product.title}
-                            </p>
-                            <Link href={product.url}
-                                target="_blank"
-                                className="text-base text-black opacity-50">Visit Product</Link>
+							</p>
+							<Link
+								href={product.url}
+								target="_blank"
+								className="text-base text-black opacity-50">
+								Visit Product
+							</Link>
+						</div>
+						<div className="flex items-center gap-3">
+							<div className="product-hearts">
+								<Image
+									src={"/assets/icons/red-heart.svg"}
+									alt="Heart"
+									width={20}
+									height={20}
+								/>
+								<p className="text-base font-semibold text-[#D46F77]">
+									{product.reviewCounts}
+								</p>
+							</div>
+							<div className="p-2 bg-white-200 rounded-10">
+								<Image
+									src="/assets/icons/bookmark.svg"
+									alt="Wishlist"
+									width={20}
+									height={20}
+								/>
+							</div>
+							<div className="p-2 bg-white-200 rounded-10">
+								<Image
+									src="/assets/icons/share.svg"
+									alt="Share"
+									width={20}
+									height={20}
+								/>
+							</div>
+						</div>
+					</div>
+					<div className="product-info">
+						<div className="flex flex-col gap-2">
+							<p className="text-[28px] text-secondary font-bold">
+								{product.currency}{" "}
+								{formatNumber(product.currentPrice)}
+							</p>
+							<p className="text-[21px] text-black opacity-50 line-through">
+								{product.currency}{" "}
+								{formatNumber(product.originalPrice)}
+							</p>
 						</div>
 					</div>
 				</div>

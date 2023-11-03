@@ -34,7 +34,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 		const discountRate = $(".savingsPercentage")
 			.text()
             .replace(/[-%]/g, "");
-		const reviewCount = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
+		const reviewCounts = $('span#acrCustomerReviewText.a-size-base').eq(1).text().trim().replace(/[^0-9]+/g, "")
 		const description = extractDescription($);
 		const category = extractCategory($('a.a-color-tertiary').last());
         // const stars = $('span.a-size-base.a-color-base').eq(1).text().trim();
@@ -47,7 +47,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			isOutOfStock: outOfStock,
 			currency: currency || '₹',
 			discountRate: discountRate ? Number(discountRate) : 0,
-			reviewCount,
+			reviewCounts,
 			stars: 4.2,
 			category,
 			description,
