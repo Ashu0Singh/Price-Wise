@@ -3,7 +3,7 @@
 module.exports = {
 	experimental: {
         serverActions: true,
-        serverComponentsExternalPackages: ['mongoose']
+        serverComponentsExternalPackages: ['mongoose','puppeteer']
     },
     images: {
         domains : ['m.media-amazon.com']

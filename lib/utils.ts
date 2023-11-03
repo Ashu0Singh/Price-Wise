@@ -13,7 +13,6 @@ const THRESHOLD_PERCENTAGE = 40;
 export function extractPrice(...elements: any) {
 	for (const element of elements) {
 		const priceText = element.text().trim();
-
 		if (priceText) {
 			const cleanPrice = priceText.replace(/[^\d.]/g, "");
 
@@ -128,7 +127,15 @@ export function extractCategory(categories: any) {
 export function getImageArray(images: any) {
 	const outputImages = [];
 	for (const image of images) {
-		if (image.attribs.src) outputImages.push(image.attribs.src);
+		if (image.attribs.src) outputImages.push(image.attribs["data-old-hires"]);
 	}
 	return outputImages;
+}
+
+export function extractStars(elements : any) {
+	let stars: String = '';
+	for (const element of elements) {
+		stars = element.children?.[0].data.match(/^\d+\.\d+/)[0];
+	}
+	return stars;
 }
