@@ -9,6 +9,7 @@ import React from "react";
 
 const Product = async ({ params }: { params: { id: String } }) => {
 	const product: Product = await getProductsById(params.id);
+	let id = 1;
 	if (!product) return redirect("/");
 	return (
 		<div className="product-container">
@@ -72,8 +73,7 @@ const Product = async ({ params }: { params: { id: String } }) => {
 								{formatNumber(product.currentPrice)}
 							</p>
 							<p className="text-[21px] text-black opacity-50 line-through">
-								{product.currency}{" "}
-								{product.originalPrice}
+								{product.currency} {product.originalPrice}
 							</p>
 						</div>
 						<div className="flex flex-col gap-4">
@@ -102,39 +102,62 @@ const Product = async ({ params }: { params: { id: String } }) => {
 								</div>
 							</div>
 							<p className="text-sm text-black opacity-50">
-								<span className="text-primary-green font-semibold">93%</span> of buyers have recommended
+								<span className="text-primary-green font-semibold">
+									93%
+								</span>{" "}
+								of buyers have recommended
 							</p>
 						</div>
 					</div>
-
 					<div className="my-7 flex flex-col gap-5">
 						<div className="flex gap-5 flex-wrap">
 							<PriceInfoComponent
 								title={"Current Price"}
 								iconSrc={"/assets/icons/price-tag.svg"}
-								value={`${product.currency} ${formatNumber(product.currentPrice)}`}
+								value={`${product.currency} ${formatNumber(
+									product.currentPrice
+								)}`}
 								borderColor="#b6dbff"
 							/>
 							<PriceInfoComponent
 								title={"Average Price"}
 								iconSrc={"/assets/icons/chart.svg"}
-								value={`${product.currency} ${formatNumber(product.averagePrice)}`}
+								value={`${product.currency} ${formatNumber(
+									product.averagePrice
+								)}`}
 								borderColor="#b6dbff"
 							/>
 							<PriceInfoComponent
 								title={"Highest Price"}
 								iconSrc={"/assets/icons/arrow-up.svg"}
-								value={`${product.currency} ${formatNumber(product.highestPrice)}`}
+								value={`${product.currency} ${formatNumber(
+									product.highestPrice
+								)}`}
 								borderColor="#b6dbff"
 							/>
 							<PriceInfoComponent
 								title={"Lowest Price"}
 								iconSrc={"/assets/icons/arrow-down.svg"}
-								value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
+								value={`${product.currency} ${formatNumber(
+									product.lowestPrice
+								)}`}
 								borderColor="#b6dbff"
 							/>
 						</div>
 					</div>
+					Modal Box
+				</div>
+			</div>
+			<div className="flex flex-col gap-16">
+				<div className="flex flex-col gap-5">
+					<h3 className="text-2xl text-secondary font-semibold">
+						Product Description
+					</h3>
+					<ol className="flex list-disc flex-col gap-3 px-5">
+						{product?.description.map((text) => {
+							return <li key={id++}>{text}</li>;
+						})}
+					</ol>
 				</div>
 			</div>
 		</div>

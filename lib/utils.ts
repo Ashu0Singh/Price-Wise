@@ -39,9 +39,8 @@ export function extractCurrency(element: any) {
 export function extractDescription(elements: any) {
 	const description : Array<String> = []
 	for (const element of elements) {
-		description.push(element.children?.[0].data.trim());
+		description.push(element.children?.[0].data.trim().replace(/^[\s.]*|[\s.]*$/g, ''));
 	}
-	console.log(description);
 	return description;
 }
 
