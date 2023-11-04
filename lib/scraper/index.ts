@@ -58,7 +58,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			.text()
 			.trim()
 			.replace(/[^0-9]+/g, "");
-		const description = extractDescription($);
+		const description = extractDescription($('div#feature-bullets.a-section.a-spacing-medium.a-spacing-top-small > ul > li > span.a-list-item'));
 		const category = extractCategory($("a.a-color-tertiary").last());
 		const data = {
 			url: productUrl,
