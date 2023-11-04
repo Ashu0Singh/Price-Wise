@@ -29,8 +29,7 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 	try {
 		// const response = await axios.get(productUrl, option);
 		// const $ = cheerio.load(response.data);
-
-		const browser = await puppeteer.launch({headless: 'new'});
+		const browser = await puppeteer.launch({headless: true});
 
 		const page = await browser.newPage();
 		await page.goto(`${productUrl}`);
