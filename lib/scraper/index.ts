@@ -9,7 +9,8 @@ import {
 	getImageArray,
 } from "../utils";
 
-import puppeteer from "puppeteer";
+import chromium from "chrome-aws-lambda";
+// import puppeteer from "puppeteer-core";
 
 export const scrapAmazonProducts = async (productUrl: string) => {
 	// const username = String(process.env.BRIGHT_DATA_USERNAME);
@@ -29,7 +30,13 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 	try {
 		// const response = await axios.get(productUrl, option);
 		// const $ = cheerio.load(response.data);
-		const browser = await puppeteer.launch({headless: true});
+		const browser = await chromium.puppeteer.launch({
+			args: chromium.args,
+			defaultViewport: chromium.defaultViewport,
+			executablePath: await chromium.executablePath,
+			headless: true,
+			ignoreHTTPSErrors: true,
+		});
 
 		const page = await browser.newPage();
 		await page.goto(`${productUrl}`);
@@ -42,7 +49,9 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 		const originalPrice = extractPrice(
 			$("span.basisPrice > span.a-price.a-text-price > span.a-offscreen")
 		);
-		const stars = extractStars($('i.cm-cr-review-stars-spacing-big > span.a-icon-alt'));
+		const stars = extractStars(
+			$("i.cm-cr-review-stars-spacing-big > span.a-icon-alt")
+		);
 
 		const images = getImageArray($("img#landingImage"));
 		const currency = extractCurrency($(".a-price-symbol"));
@@ -57,7 +66,11 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 			.text()
 			.trim()
 			.replace(/[^0-9]+/g, "");
-		const description = extractDescription($('div#feature-bullets.a-section.a-spacing-medium.a-spacing-top-small > ul > li > span.a-list-item'));
+		const description = extractDescription(
+			$(
+				"div#feature-bullets.a-section.a-spacing-medium.a-spacing-top-small > ul > li > span.a-list-item"
+			)
+		);
 		const category = extractCategory($("a.a-color-tertiary").last());
 		const data = {
 			url: productUrl,

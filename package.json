@@ -12,6 +12,7 @@
     "@vercel/analytics": "^1.1.1",
     "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
+    "chrome-aws-lambda": "^10.1.0",
     "debug": "^4.3.4",
     "mongoose": "^7.6.3",
     "next": "13.5.6",
