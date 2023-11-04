@@ -8,7 +8,6 @@ import ProductCard from "@/components/ProductCard";
 
 const Home = async () => {
 	const products = await getAllProducts();
-
 	return (
 		<>
 			<section className="px-6 md:px-20 py-24 pb-0">
@@ -38,7 +37,7 @@ const Home = async () => {
 			</section>
 			<section className="trending-section">
 				<h2 className="section-text">Trending</h2>
-				<div className="flex flex-wrap justify-center sm:justify-start gap-x-8 gap-y-16">
+				<div className="flex flex-wrap justify-center sm:justify-start gap-x-8 gap-y-8 sm:gap-y-16">
 					{products?.map((product: any) => {
 						return (
 							<ProductCard key={product._id} product={product} />

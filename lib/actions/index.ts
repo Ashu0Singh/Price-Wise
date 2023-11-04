@@ -64,9 +64,23 @@ export async function getProductsById(id: String) {
 export async function getAllProducts() {
 	try {
 		connectToDb();
-		const products = await Products.find();
+		const products = await Products.find()
+			.sort({ reviewCounts: -1 })
+			.limit(12);
 		return products;
 	} catch (error: any) {
 		console.log(`-> Failed to fetch all products : ${error.message}`);
+	}
+}
+
+export async function getProductsByCategory(category: String) {
+	try {
+		connectToDb();
+		const similarProducts = await Products.find({ category: category })
+			.sort("reviewCount")
+			.limit(4);
+		return similarProducts;
+	} catch (error: any) {
+		console.log(error.message);
 	}
 }
