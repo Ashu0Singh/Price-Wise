@@ -145,7 +145,30 @@ const Product = async ({ params }: { params: { id: String } }) => {
 							/>
 						</div>
 					</div>
-					Modal Box
+					<div className="flex flex-row gap-5 md:gap-10 flex-wrap">
+						<button className="btn bg-secondary grow mx-auto flex items-center justify-center gap-3 min-w-[200px]">
+							<Image
+								src="/assets/icons/bag.svg"
+								alt="Buy Now"
+								width={22}
+								height={22}
+							/>
+							<Link href={"/"} className="text-base text-white">
+								Track Price
+							</Link>
+						</button>
+						<button className="btn grow mx-auto flex items-center justify-center gap-3 min-w-[200px] bg-primary">
+							<Image
+								src="/assets/icons/bag.svg"
+								alt="Buy Now"
+								width={22}
+								height={22}
+							/>
+							<Link href={"/"} className="text-base text-white">
+								Buy Now
+							</Link>
+						</button>
+					</div>
 				</div>
 			</div>
 			<div className="flex flex-col gap-16">

@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-
+import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 const spaceGrotesk = Space_Grotesk({
 	subsets: ["latin"],
@@ -26,6 +26,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<main className="max-w-10xl mx-auto">
 					<Toaster />
+					<Analytics />
 					<Navbar />
 					{children}
 				</main>
