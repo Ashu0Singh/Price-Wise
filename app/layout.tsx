@@ -22,7 +22,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" className="no-scrollbar">
 			<body className={inter.className}>
 				<main className="max-w-10xl mx-auto">
 					<Toaster />

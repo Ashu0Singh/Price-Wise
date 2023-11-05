@@ -6,7 +6,7 @@ import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
+import TrackPrice from "@/components/TrackPrice";
 
 const Product = async ({ params }: { params: { id: String } }) => {
 	const product: Product = await getProductsById(params.id);
@@ -148,17 +148,7 @@ const Product = async ({ params }: { params: { id: String } }) => {
 						</div>
 					</div>
 					<div className="flex flex-row gap-5 md:gap-10 flex-wrap">
-						<button className="btn bg-secondary grow mx-auto flex items-center justify-center gap-3 min-w-[200px]">
-							<Image
-								src="/assets/icons/bag.svg"
-								alt="Buy Now"
-								width={22}
-								height={22}
-							/>
-							<Link href={"/"} className="text-base text-white">
-								Track Price
-							</Link>
-						</button>
+						<TrackPrice />
 						<button className="btn grow mx-auto flex items-center justify-center gap-3 min-w-[200px] bg-primary">
 							<Image
 								src="/assets/icons/bag.svg"
@@ -186,12 +176,14 @@ const Product = async ({ params }: { params: { id: String } }) => {
 				</div>
 			</div>
 			{similarProducts && similarProducts?.length > 1 && (
-				<div className="py-5 flex flex-col gap-2 w-full">
+				<div  className="py-5 flex flex-col gap-2 w-full">
 					<p className="section-text">Similar Product</p>
-					<div className="flex flex-wrap gap-8 mt-2 w-full">{similarProducts.map((prod : Product) => {
-						if (prod.url == product.url) return;
-						return (<ProductCard product={prod} />);
-					})}</div>
+					<div className="flex flex-wrap gap-8 mt-2 w-full">
+						{similarProducts.map((prod: Product) => {
+							if (prod.url == product.url) return;
+							return <ProductCard key={prod._id} product={prod} />;
+						})}
+					</div>
 				</div>
 			)}
 		</div>
