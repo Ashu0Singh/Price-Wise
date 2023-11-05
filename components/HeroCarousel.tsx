@@ -9,7 +9,6 @@ const heroImages = [
 	{ imgUrl: "/assets/images/hero-1.svg", alt: "Smartwatch" },
 	{ imgUrl: "/assets/images/hero-2.svg", alt: "Bag" },
 	{ imgUrl: "/assets/images/hero-3.svg", alt: "Lamp" },
-	{ imgUrl: "/assets/images/hero-4.svg", alt: "Air Fryer" },
 	{ imgUrl: "/assets/images/hero-5.svg", alt: "Chair" },
 ];
 
@@ -17,12 +16,12 @@ const HeroCarousel = () => {
 	return (
 		<div className="hero-carousel">
 			<Carousel
-				// autoPlay
+				autoPlay
 				infiniteLoop
 				showThumbs={false}
 				showStatus={false}
 				showArrows={false}
-                // interval={2000}
+                interval={2000}
             >
 				{heroImages.map((image) => (
 					<div key={image.alt}>
