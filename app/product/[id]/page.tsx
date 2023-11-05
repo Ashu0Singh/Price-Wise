@@ -188,7 +188,7 @@ const Product = async ({ params }: { params: { id: String } }) => {
 			{similarProducts && similarProducts?.length > 1 && (
 				<div className="py-5 flex flex-col gap-2 w-full">
 					<p className="section-text">Similar Product</p>
-					<div className="flex flex-wrap gap-10 mt-2 w-full">{similarProducts.map((prod : Product) => {
+					<div className="flex flex-wrap gap-8 mt-2 w-full">{similarProducts.map((prod : Product) => {
 						if (prod.url == product.url) return;
 						return (<ProductCard product={prod} />);
 					})}</div>

@@ -77,7 +77,7 @@ export async function getProductsByCategory(category: String) {
 	try {
 		connectToDb();
 		const similarProducts = await Products.find({ category: category })
-			.sort("reviewCount")
+			.sort({ reviewCounts: -1 })
 			.limit(4);
 		return similarProducts;
 	} catch (error: any) {
