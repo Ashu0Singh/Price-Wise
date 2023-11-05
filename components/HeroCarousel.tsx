@@ -14,7 +14,7 @@ const heroImages = [
 
 const HeroCarousel = () => {
 	return (
-		<div className="hero-carousel">
+		<div className="hero-carousel mx-auto">
 			<Carousel
 				autoPlay
 				infiniteLoop

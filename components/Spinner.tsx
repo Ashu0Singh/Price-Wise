@@ -4,7 +4,7 @@ interface Props {
 
 const Spinner = ({ text }: Props) => {
 	return (
-		<div role="status">
+		<div role="status" className="mx-auto">
 			<svg
 				aria-hidden="true"
 				className="inline h-[21px] mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-white-100"

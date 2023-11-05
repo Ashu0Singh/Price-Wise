@@ -10,7 +10,7 @@ const Home = async () => {
 	const products = await getAllProducts();
 	return (
 		<>
-			<section className="px-6 md:px-20 py-24 pb-0">
+			<section className="px-6 md:px-20 py-10 md:py-20 pb-0">
 				<div className="flex max-xl:flex-col gap-16">
 					<div className="flex flex-col justify-center">
 						<p className="small-text">
@@ -36,7 +36,7 @@ const Home = async () => {
 				</div>
 			</section>
 			<section className="trending-section">
-				<h2 className="section-text">Trending</h2>
+				<h2 className="section-text">Trending Products</h2>
 				<div className="flex flex-wrap justify-center sm:justify-start gap-x-8 gap-y-8 sm:gap-y-16">
 					{products?.map((product: any) => {
 						return (
