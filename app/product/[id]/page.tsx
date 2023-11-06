@@ -11,7 +11,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import TrackPrice from "@/components/TrackPrice";
-import Products from "@/lib/models/products.model";
 
 export async function generateStaticParams() {
 	const ids = await getAllProductsID();
