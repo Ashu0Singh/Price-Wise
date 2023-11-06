@@ -9,41 +9,35 @@ import {
 	getImageArray,
 } from "../utils";
 
-import chromium from "chrome-aws-lambda";
-// import puppeteer from "puppeteer-core";
+// import chromium from "chrome-aws-lambda";
+import puppeteer from "puppeteer";
 
 export const scrapAmazonProducts = async (productUrl: string) => {
-	// const username = String(process.env.BRIGHT_DATA_USERNAME);
-	// const password = String(process.env.PASSWORD);
-	// const port = 22225;
-	// const sessionID = (1000000 * Math.random()) | 0;
-	// const option = {
-	// 	auth: {
-	// 		username: `${username}-session-${sessionID}`,
-	// 		password,
-	// 	},
-	// 	host: "brd.superproxy.io",
-	// 	port,
-	// 	rejectUnauthorized: false,
-	// };
+	const username = String(process.env.BRIGHT_DATA_USERNAME);
+	const password = String(process.env.PASSWORD);
+	const port = 22225;
+	const sessionID = (1000000 * Math.random()) | 0;
+	const option = {
+		auth: {
+			username: `${username}-session-${sessionID}`,
+			password,
+		},
+		host: "brd.superproxy.io",
+		port,
+		rejectUnauthorized: false,
+	};
 
 	try {
-		// const response = await axios.get(productUrl, option);
-		// const $ = cheerio.load(response.data);
-		const browser = await chromium.puppeteer.launch({
-			args: chromium.args,
-			defaultViewport: chromium.defaultViewport,
-			executablePath: await chromium.executablePath,
-			headless: true,
-			ignoreHTTPSErrors: true,
-		});
+		const response = await axios.get(productUrl, option);
+		const $ = cheerio.load(response.data);
+		// const browser = await puppeteer.launch({headless: true});
 
-		const page = await browser.newPage();
-		await page.goto(`${productUrl}`);
+		// const page = await browser.newPage();
+		// await page.goto(`${productUrl}`);
 
-		const body = await page.content();
-		browser.close();
-		const $ = cheerio.load(body);
+		// const body = await page.content();
+		// browser.close();
+		// const $ = cheerio.load(body);
 		const productTitle = $("#productTitle").text().trim();
 		const currentPrice = extractPrice($("span.a-price-whole").eq(1));
 		const originalPrice = extractPrice(
