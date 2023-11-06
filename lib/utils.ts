@@ -105,7 +105,7 @@ export function extractCategory(categories: any) {
 	let catVal;
 	for (const cat of categories)
 		catVal = cat;
-	const category = catVal.children[0].data.trim();
+	const category = catVal.children?.[0].data.trim();
 	return category;
 }
 
