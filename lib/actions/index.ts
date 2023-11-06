@@ -88,20 +88,19 @@ export async function getProductsByCategory(category: String) {
 	}
 }
 
-export async function addUserEmailToProduct(
-	productId: String,
-	email: String
-) {
+export async function addUserEmailToProduct(productId: String, email: String) {
 	try {
 		connectToDb();
 		const product: Product = await getProductsById(productId);
 		if (!product) return 400;
-		
-		const userExist = product.users?.some((user: User) => user.email === email);
+
+		const userExist = product.users?.some(
+			(user: User) => user.email === email
+		);
 		if (!userExist) {
 			await Products.findOneAndUpdate(
 				{ _id: productId },
-				{ $push: { 'users': {email} } }
+				{ $push: { users: { email } } }
 			);
 			// const emailContent = generateEmailBody(product, email);
 		}
@@ -109,4 +108,11 @@ export async function addUserEmailToProduct(
 	} catch (error: any) {
 		console.log(`Unable to add user email to product : ${error.message}`);
 	}
+}
+
+export async function getAllProductsID() {
+	connectToDb();
+	const productIds = await Products.find({}, { "_id": 1 });
+	const ids = Promise.resolve( productIds.map((product) => product._id.toString()));
+	return ids;
 }

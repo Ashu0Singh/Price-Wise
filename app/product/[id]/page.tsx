@@ -1,12 +1,22 @@
 import PriceInfoComponent from "@/components/PriceInfoComponent";
 import ProductCard from "@/components/ProductCard";
-import { getProductsByCategory, getProductsById } from "@/lib/actions";
+import {
+	getAllProductsID,
+	getProductsByCategory,
+	getProductsById,
+} from "@/lib/actions";
 import { formatNumber } from "@/lib/utils";
 import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import TrackPrice from "@/components/TrackPrice";
+import Products from "@/lib/models/products.model";
+
+export async function generateStaticParams() {
+	const ids = await getAllProductsID();
+	return ids.map((id) => ({ id: id }));
+}
 
 const Product = async ({ params }: { params: { id: String } }) => {
 	const product: Product = await getProductsById(params.id);
@@ -176,12 +186,14 @@ const Product = async ({ params }: { params: { id: String } }) => {
 				</div>
 			</div>
 			{similarProducts && similarProducts?.length > 1 && (
-				<div  className="py-5 flex flex-col gap-2 w-full">
+				<div className="py-5 flex flex-col gap-2 w-full">
 					<p className="section-text">Similar Product</p>
 					<div className="flex flex-wrap gap-8 mt-2 w-full">
 						{similarProducts.map((prod: Product) => {
 							if (prod.url == product.url) return;
-							return <ProductCard key={prod._id} product={prod} />;
+							return (
+								<ProductCard key={prod._id} product={prod} />
+							);
 						})}
 					</div>
 				</div>
