@@ -148,7 +148,7 @@ const Product = async ({ params }: { params: { id: String } }) => {
 						</div>
 					</div>
 					<div className="flex flex-row gap-5 md:gap-10 flex-wrap">
-						<TrackPrice />
+						<TrackPrice productId={params.id} />
 						<button className="btn grow mx-auto flex items-center justify-center gap-3 min-w-[200px] bg-primary">
 							<Image
 								src="/assets/icons/bag.svg"

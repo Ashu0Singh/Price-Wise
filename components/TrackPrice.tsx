@@ -1,19 +1,29 @@
 "use client";
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { FormEvent, Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Spinner from "./Spinner";
+import { addUserEmailToProduct } from "@/lib/actions";
 
-const TrackPrice = () => {
+interface props {
+	productId: String;
+}
+
+const TrackPrice = ({ productId }: props) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [email, setEmail] = useState("");
 
-	const handleSubmit = (event: any) => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-        setIsSubmitting(true);
-        setTimeout(() => setIsSubmitting(false), 2000);
-		console.log(email);
+		setIsSubmitting(true);
+		try {
+			await addUserEmailToProduct(productId, email);
+		} catch (error: any) {
+			console.log(error.message);
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	const openModal = () => setIsOpen(true);

@@ -5,6 +5,9 @@ import Products from "../models/products.model";
 import { connectToDb } from "../mongoose";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { redirect } from "next/navigation";
+import { EmailContent, Product } from "@/types";
+import { User } from "@/types";
+import { generateEmailBody } from "../nodemailer";
 
 const { scrapAmazonProducts } = require("../scraper/index");
 
@@ -82,5 +85,28 @@ export async function getProductsByCategory(category: String) {
 		return similarProducts;
 	} catch (error: any) {
 		console.log(error.message);
+	}
+}
+
+export async function addUserEmailToProduct(
+	productId: String,
+	email: String
+) {
+	try {
+		connectToDb();
+		const product: Product = await getProductsById(productId);
+		if (!product) return 400;
+		
+		const userExist = product.users?.some((user: User) => user.email === email);
+		if (!userExist) {
+			await Products.findOneAndUpdate(
+				{ _id: productId },
+				{ $push: { 'users': {email} } }
+			);
+			// const emailContent = generateEmailBody(product, email);
+		}
+		return;
+	} catch (error: any) {
+		console.log(`Unable to add user email to product : ${error.message}`);
 	}
 }
