@@ -39,7 +39,7 @@ export function extractCurrency(element: any) {
 export function extractDescription(elements: any) {
 	const description : Array<String> = []
 	for (const element of elements) {
-		description.push(element.children?.[0].data.trim().replace(/^[\s.]*|[\s.]*$/g, ''));
+		description.push(element?.children?.[0].data.trim().replace(/^[\s.]*|[\s.]*$/g, ''));
 	}
 	return description;
 }
@@ -105,7 +105,7 @@ export function extractCategory(categories: any) {
 	let catVal;
 	for (const cat of categories)
 		catVal = cat;
-	const category = catVal.children?.[0].data.trim();
+	const category = catVal?.children?.[0].data.trim();
 	return category;
 }
 
@@ -120,7 +120,7 @@ export function getImageArray(images: any) {
 export function extractStars(elements : any) {
 	let stars: String = '';
 	for (const element of elements) {
-		stars = element.children?.[0].data.match(/^\d+\.\d+/)[0];
+		stars = element?.children?.[0].data.match(/^\d+\.\d+/)[0];
 	}
 	return stars;
 }

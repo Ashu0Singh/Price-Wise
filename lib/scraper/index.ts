@@ -10,7 +10,7 @@ import {
 } from "../utils";
 
 // import chromium from "chrome-aws-lambda";
-import puppeteer from "puppeteer";
+// import puppeteer from "puppeteer";
 
 export const scrapAmazonProducts = async (productUrl: string) => {
 	const username = String(process.env.BRIGHT_DATA_USERNAME);
