@@ -50,6 +50,7 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 		);
 		revalidatePath(`/`);
 		revalidatePath(`/product/${newProduct._id}`);
+		return { id: newProduct._id.valueOf() };
 	} catch (error: any) {
 		throw new Error(`Failed to create/update product : ${error.message}`);
 	}
@@ -113,7 +114,9 @@ export async function addUserEmailToProduct(productId: String, email: String) {
 
 export async function getAllProductsID() {
 	connectToDb();
-	const productIds = await Products.find({}, { "_id": 1 });
-	const ids = Promise.resolve( productIds.map((product) => product._id.toString()));
+	const productIds = await Products.find({}, { _id: 1 });
+	const ids = Promise.resolve(
+		productIds.map((product) => product._id.toString())
+	);
 	return ids;
 }

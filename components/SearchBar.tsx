@@ -4,11 +4,17 @@ import { scrapeAndStoreProduct } from "@/lib/actions";
 import React, { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 import Spinner from "./Spinner";
+import { useRouter } from "next/navigation";
+
+interface Response {
+	id : string
+}
 
 const SearchBar = () => {
 	const [searchPrompt, setSearchPrompt] = useState(
 		"https://www.amazon.in/ASUS-PA278QV-DisplayPort-Anti-Glare-Adjustable/dp/B088BC5HMM"
 	);
+	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
 	const isValidAmazonUrl = (url: string) => {
@@ -33,14 +39,18 @@ const SearchBar = () => {
 		if (!isValidUrl) return toast.error("Enter a valid amazon URL");
 		try {
 			setIsLoading(true);
-			const product = await scrapeAndStoreProduct(searchPrompt);
+			const response: Response | undefined = await scrapeAndStoreProduct(searchPrompt);
+			router.push(`/product/${response?.id}`);
 		} catch (error) {
+			console.log(error);
 		} finally {
 			setIsLoading(false);
 		}
 	};
 	return (
-		<form className="flex flex-col sm:flex-row gap-4 mt-12" onSubmit={handleSubmit}>
+		<form
+			className="flex flex-col sm:flex-row gap-4 mt-12"
+			onSubmit={handleSubmit}>
 			<input
 				type="text"
 				value={searchPrompt}
@@ -52,7 +62,7 @@ const SearchBar = () => {
 				type="submit"
 				className="searchbar-btn"
 				disabled={searchPrompt === ""}>
-				{isLoading ? < Spinner text={"Searching"}/> : "Search"}
+				{isLoading ? <Spinner text={"Searching"} /> : "Search"}
 			</button>
 		</form>
 	);
