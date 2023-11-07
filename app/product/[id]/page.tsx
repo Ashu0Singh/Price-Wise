@@ -12,6 +12,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import TrackPrice from "@/components/TrackPrice";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
 	const ids = await getAllProductsID();
 	return ids.map((id) => ({ id: id }));
