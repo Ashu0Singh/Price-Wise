@@ -10,9 +10,26 @@ const Notification = {
 const THRESHOLD_PERCENTAGE = 40;
 
 // Extracts and returns the price from a list of possible elements.
+
+export function extractOriginalPrice(elements: any) {
+	for (const element of elements) {
+		const priceText = element?.children?.[0]?.data;
+		if (priceText) {
+			const cleanPrice = priceText.replace(/[^\d.]/g, "");
+			let firstPrice;
+			if (cleanPrice) {
+				firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0];
+			}
+			return firstPrice || cleanPrice;
+		}
+	}
+	return "";
+}
+
 export function extractPrice(...elements: any) {
 	for (const element of elements) {
 		const priceText = element.text().trim();
+
 		if (priceText) {
 			const cleanPrice = priceText.replace(/[^\d.]/g, "");
 
@@ -37,9 +54,11 @@ export function extractCurrency(element: any) {
 
 // Extracts description from two possible elements from amazon
 export function extractDescription(elements: any) {
-	const description : Array<String> = []
+	const description: Array<String> = [];
 	for (const element of elements) {
-		description.push(element?.children?.[0].data.trim().replace(/^[\s.]*|[\s.]*$/g, ''));
+		description.push(
+			element?.children?.[0].data.trim().replace(/^[\s.]*|[\s.]*$/g, "")
+		);
 	}
 	return description;
 }
@@ -103,8 +122,7 @@ export const formatNumber = (num: number = 0) => {
 
 export function extractCategory(categories: any) {
 	let catVal;
-	for (const cat of categories)
-		catVal = cat;
+	for (const cat of categories) catVal = cat;
 	const category = catVal?.children?.[0].data.trim();
 	return category;
 }
@@ -112,13 +130,14 @@ export function extractCategory(categories: any) {
 export function getImageArray(images: any) {
 	const outputImages = [];
 	for (const image of images) {
-		if (image.attribs.src) outputImages.push(image.attribs["data-old-hires"]);
+		if (image.attribs.src)
+			outputImages.push(image.attribs["data-old-hires"]);
 	}
 	return outputImages;
 }
 
-export function extractStars(elements : any) {
-	let stars: String = '';
+export function extractStars(elements: any) {
+	let stars: String = "";
 	for (const element of elements) {
 		stars = element?.children?.[0].data.match(/^\d+\.\d+/)[0];
 	}

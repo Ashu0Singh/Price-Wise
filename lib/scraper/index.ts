@@ -4,6 +4,7 @@ import {
 	extractCategory,
 	extractCurrency,
 	extractDescription,
+	extractOriginalPrice,
 	extractPrice,
 	extractStars,
 	getImageArray,
@@ -40,9 +41,17 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 		// const $ = cheerio.load(body);
 		const productTitle = $("#productTitle").text().trim();
 		const currentPrice = extractPrice($("span.a-price-whole").eq(1));
-		const originalPrice = extractPrice(
-			$("span.basisPrice > span.a-price.a-text-price > span.a-offscreen")
-		);
+		const originalPrice =
+			extractOriginalPrice(
+				$(
+					"span.basisPrice > span.a-price.a-text-price > span.a-offscreen"
+				)
+			) ||
+			extractOriginalPrice(
+				$(
+					"td.a-span12.a-color-secondary.a-size-base > span.a-price.a-text-price.a-size-base > span.a-offscreen"
+				)
+			);
 		const stars = extractStars(
 			$("i.cm-cr-review-stars-spacing-big > span.a-icon-alt")
 		);
