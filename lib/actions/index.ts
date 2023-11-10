@@ -4,10 +4,9 @@ import { revalidatePath } from "next/cache";
 import Products from "../models/products.model";
 import { connectToDb } from "../mongoose";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
-import { redirect } from "next/navigation";
-import { EmailContent, Product } from "@/types";
+import { Product } from "@/types";
 import { User } from "@/types";
-import { generateEmailBody } from "../nodemailer";
+import { generateEmailBody, sendEmail } from "../nodemailer";
 
 const { scrapAmazonProducts } = require("../scraper/index");
 
@@ -104,7 +103,9 @@ export async function addUserEmailToProduct(productId: String, email: String) {
 				{ _id: productId },
 				{ $push: { users: { email } } }
 			);
-			// const emailContent = generateEmailBody(product, email);
+			const emailContent = generateEmailBody(product, "WELCOME");
+
+			await sendEmail(emailContent, [email]);
 		}
 		return;
 	} catch (error: any) {

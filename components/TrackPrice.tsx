@@ -4,6 +4,7 @@ import { FormEvent, Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Spinner from "./Spinner";
 import { addUserEmailToProduct } from "@/lib/actions";
+import toast from "react-hot-toast";
 
 interface props {
 	productId: String;
@@ -19,8 +20,10 @@ const TrackPrice = ({ productId }: props) => {
 		setIsSubmitting(true);
 		try {
 			await addUserEmailToProduct(productId, email);
+			closeModal();
 		} catch (error: any) {
 			console.log(error.message);
+			toast.error("Internal Error");
 		} finally {
 			setIsSubmitting(false);
 		}
