@@ -131,7 +131,7 @@ const SearchProd = () => {
 												onClick={() =>
 													setTimeout(
 														() => closeModal(),
-														3¸00
+														300
 													)
 												}
 												className="flex max-h-[100px] flex-row px-2 gap-3 py-3 border-2 rounded-xl border-secondary/5">
