@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import SearchProd from "./SearchProd";
 
 const NavIcons = [
-	{src : "/assets/icons/search.svg", alt : "Search"},
-	{src : "/assets/icons/black-heart.svg", alt : "Wishlist"},
-	{src : "/assets/icons/user.svg", alt : "Profile"},
+	{ src: "/assets/icons/black-heart.svg", alt: "Wishlist" },
+	{ src: "/assets/icons/user.svg", alt: "Profile" },
 ];
 
 const Navbar = () => {
@@ -24,17 +24,16 @@ const Navbar = () => {
 					</p>
 				</Link>
 				<div className="flex item-center gap-5">
-					{
-						NavIcons.map(icon => (
-							<Image
-								key={icon.alt}
-								src={icon.src}
-								alt={icon.alt}
-								width={28}
-								height={28}
-							/>
-						))
-					}
+					<SearchProd />
+					{NavIcons.map((icon) => (
+						<Image
+							key={icon.alt}
+							src={icon.src}
+							alt={icon.alt}
+							width={28}
+							height={28}
+						/>
+					))}
 				</div>
 			</nav>
 		</header>
