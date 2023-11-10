@@ -7,6 +7,7 @@ import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { Product } from "@/types";
 import { User } from "@/types";
 import { generateEmailBody, sendEmail } from "../nodemailer";
+import UserEmails from "../models/useremail.model";
 
 const { scrapAmazonProducts } = require("../scraper/index");
 
@@ -103,6 +104,10 @@ export async function addUserEmailToProduct(productId: String, email: String) {
 				{ _id: productId },
 				{ $push: { users: { email } } }
 			);
+			await UserEmails.create({
+				email: email,
+				id: product._id
+			})
 			const emailContent = generateEmailBody(product, "WELCOME");
 
 			await sendEmail(emailContent, [email]);
