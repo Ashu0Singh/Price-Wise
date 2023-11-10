@@ -74,10 +74,12 @@ export const scrapAmazonProducts = async (productUrl: string) => {
 				"div#feature-bullets.a-section.a-spacing-medium.a-spacing-top-small > ul > li > span.a-list-item"
 			)
 		);
+		const titleID = productTitle.replace(/\s/g, "").toLowerCase();
 		const category = extractCategory($("a.a-color-tertiary").last());
 		const data = {
 			url: productUrl,
 			title: productTitle,
+			titleID: titleID,
 			currentPrice: Number(currentPrice),
 			originalPrice: originalPrice
 				? Number(originalPrice)

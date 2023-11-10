@@ -18,10 +18,15 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 		const scrapedProduct = await scrapAmazonProducts(productUrl);
 		if (!scrapedProduct) return;
 		let product = scrapedProduct;
-		const existingProduct = await Products.findOne({
-			url: scrapedProduct.url,
-		});
+
+		// Checking product by its title
+		const existingProduct = await Products.findOne({ titleID: scrapedProduct.titleID });
 		let updatedPriceHistory: any = [];
+
+		//Checking product by its url if not found by name
+		// const existingProduct = await Products.findOne({
+		// 	url: scrapedProduct.url,
+		// });
 		if (existingProduct !== null) {
 			updatedPriceHistory = [
 				...existingProduct.priceHistory,
@@ -41,7 +46,7 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 			averagePrice: getAveragePrice(updatedPriceHistory),
 		};
 		const newProduct = await Products.findOneAndUpdate(
-			{ url: scrapedProduct.url },
+			{ titleID: scrapedProduct.titleID },
 			product,
 			{
 				upsert: true,
