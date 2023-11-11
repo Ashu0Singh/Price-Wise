@@ -112,7 +112,7 @@
 	}
 
 	.dialog-input_container {
-		@apply px-5 py-3 mt-3 flex items-center gap-2 border border-gray-300 rounded-[27px];
+		@apply px-5 py-3 mt-3 flex items-center gap-2 border border-gray-300 rounded-xl;
 	}
 
 	.dialog-input {

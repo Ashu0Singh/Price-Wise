@@ -8,39 +8,11 @@ import Link from "next/link";
 import { FormEvent, Fragment, useState } from "react";
 
 const SearchProd = () => {
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 	const [searchString, setSearchString] = useState("");
 	const [products, setProducts] = useState([
 		{
 			_id: "654e516f4a60434c48f02a2",
-			title: "Samsung Galaxy S23 FE 5G (Graphite, 8GB, 128GB Storage)",
-			category: "Smartphones",
-			reviewCounts: "19",
-			image: "https://m.media-amazon.com/images/I/71tK+6kbxGL._SL1500_.jpg",
-		},
-		{
-			_id: "654e516f4a60434c48f0a32",
-			title: "Samsung Galaxy S23 FE 5G (Graphite, 8GB, 128GB Storage)",
-			category: "Smartphones",
-			reviewCounts: "19",
-			image: "https://m.media-amazon.com/images/I/71tK+6kbxGL._SL1500_.jpg",
-		},
-		{
-			_id: "654e516f4a6043448f02a32",
-			title: "Samsung Galaxy S23 FE 5G (Graphite, 8GB, 128GB Storage)",
-			category: "Smartphones",
-			reviewCounts: "19",
-			image: "https://m.media-amazon.com/images/I/71tK+6kbxGL._SL1500_.jpg",
-		},
-		{
-			_id: "654e516f460434c48f02a32",
-			title: "Samsung Galaxy S23 FE 5G (Graphite, 8GB, 128GB Storage)",
-			category: "Smartphones",
-			reviewCounts: "19",
-			image: "https://m.media-amazon.com/images/I/71tK+6kbxGL._SL1500_.jpg",
-		},
-		{
-			_id: "654e5164a60434c48f02a32",
 			title: "Samsung Galaxy S23 FE 5G (Graphite, 8GB, 128GB Storage)",
 			category: "Smartphones",
 			reviewCounts: "19",
@@ -53,7 +25,7 @@ const SearchProd = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		await axios
-			.post("http://localhost:3000/api/getSearchProds", {
+			.post(`${process.env.API_ROUTE}/api/getSearchProds`, {
 				searchString,
 			})
 			.then((res) => setProducts(res.data.products))
