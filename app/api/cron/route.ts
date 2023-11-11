@@ -22,7 +22,7 @@ export async function GET() {
 
 		//1. Scraping latest product details and updated db
 
-        const updatedProducts = await Promise.all(
+        const updatedProducts = Promise.all(
             products.map(async (product) => {
                 const scrapedProduct = await scrapAmazonProducts(product.url);
                 if (!scrapedProduct) throw new Error("No product found");
@@ -68,7 +68,6 @@ export async function GET() {
 		);
 		return NextResponse.json({
 			message: "OK",
-			data: updatedProducts,
 		});
 	} catch (error: any) {
 		console.log(`Error in scheduled job : ${error.message}`);
