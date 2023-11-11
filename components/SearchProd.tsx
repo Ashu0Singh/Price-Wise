@@ -24,8 +24,9 @@ const SearchProd = () => {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		console.log(`${process.env.NEXT_PUBLIC_API_ROUTE}/api/getSearchProds`);
 		await axios
-			.post(`${process.env.API_ROUTE}/api/getSearchProds`, {
+			.post(`api/getSearchProds`, {
 				searchString,
 			})
 			.then((res) => setProducts(res.data.products))
