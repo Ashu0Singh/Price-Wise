@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 			{
 				titleID: { $regex: searchFor },
 			},
-			{ _id: 1, category: 1, title: 1, reviewCounts: 1, image: 1 }
+			{ _id: 1, category: 1, title: 1, currency: 1, currentPrice: 1 , image: 1}
 		);
 		return NextResponse.json({ message: "OK", products: products });
 	} catch (error: any) {

@@ -2,34 +2,35 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-import { error } from "console";
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, Fragment, useState } from "react";
+import Spinner from "./Spinner";
 
 const SearchProd = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchString, setSearchString] = useState("");
-	const [products, setProducts] = useState([
-		{
-			_id: "654e516f4a60434c48f02a2",
-			title: "Samsung Galaxy S23 FE 5G (Graphite, 8GB, 128GB Storage)",
-			category: "Smartphones",
-			reviewCounts: "19",
-			image: "https://m.media-amazon.com/images/I/71tK+6kbxGL._SL1500_.jpg",
-		},
-	]);
+	const [products, setProducts] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const openModal = () => setIsOpen(true);
 	const closeModal = () => setIsOpen(false);
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await axios
-			.post(`api/getSearchProds`, {
-				searchString,
-			})
-			.then((res) => setProducts(res.data.products))
-			.catch((error) => console.log(error));
+		setIsLoading(true);
+		try {
+			await axios
+				.post(`api/getSearchProds`, {
+					searchString,
+				})
+				.then((res) => setProducts(res.data.products))
+				.catch((error) => console.log(error));
+		} catch (error: any) {
+			console.log(error.message);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -94,45 +95,56 @@ const SearchProd = () => {
 										/>
 									</button>
 								</form>
-								<div className="no-scrollbar flex flex-col max-h-[200px] py-3 overflow-y-scroll gap-2 mx-auto">
-									{products.map((product) => {
-										return (
-											<Link
-												href={`/product/${product._id}`}
-												key={product._id}
-												onClick={() =>
-													setTimeout(
-														() => closeModal(),
-														300
-													)
-												}
-												className="flex max-h-[100px] flex-row px-2 gap-3 py-3 border-2 rounded-xl border-secondary/5">
-												<div className="flex min-w-[70px]">
-													<Image
-														src={product.image}
-														alt={product.title}
-														width={100}
-														height={100}
-													/>
-												</div>
-												<div className="flex justify-between flex-col px-1 truncate">
-													<h4 className="text-md font-semibold text-clip">
-														{product.title}
-													</h4>
-													<div className="flex justify-between flex-row">
-														<div className="text-slate-500 capitalize text-sm">
-															{product.category}
-														</div>
-														<div className="text-sm font-semibold text-[#efa1a8]">
-															{
-																product.reviewCounts
-															}
+								<div className="no-scrollbar flex flex-col min-h-[100px] max-h-[200px] py-3 overflow-y-scroll gap-2 mx-auto">
+									{isLoading ? (
+										<Spinner text="Loading" />
+									) : products.length > 0 ? (
+										products.map((product: any) => {
+											return (
+												<Link
+													href={`/product/${product?._id}`}
+													key={product?._id}
+													onClick={() =>
+														setTimeout(
+															() => closeModal(),
+															300
+														)
+													}
+													className="flex max-h-[100px] flex-row px-2 gap-3 py-3 border-2 rounded-xl border-secondary/5">
+													<div className="flex min-w-[74px] max-w-[75px]">
+														<Image
+															src={product?.image}
+															alt={product?.title}
+															width={100}
+															height={100}
+														/>
+													</div>
+													<div className="flex justify-between flex-col px-1 truncate w-full">
+														<h4 className="text-md font-semibold text-clip">
+															{product?.title}
+														</h4>
+														<div className="flex justify-between flex-row">
+															<div className="text-slate-500 capitalize text-sm">
+																{
+																	product?.category
+																}
+															</div>
+															<div className="text-sm font-semibold text-green-500">
+																{`${product?.currency} ${product?.currentPrice}`
+																	
+																}
+															</div>
 														</div>
 													</div>
-												</div>
-											</Link>
-										);
-									})}
+												</Link>
+											);
+										})
+									) : (
+										<div className="mx-auto my-auto text-black opacity-50">
+											{" "}
+											No products found (ᴗ_ ᴗ。)
+										</div>
+									)}
 								</div>
 							</div>
 						</Transition.Child>
