@@ -62,6 +62,7 @@ export async function GET() {
                         );
                         await sendEmail(emailContent, userEmails);
                     }
+                    console.log(updatedProduct?.title);
                     return updatedProduct;
                 }
             })
