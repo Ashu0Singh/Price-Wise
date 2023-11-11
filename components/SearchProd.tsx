@@ -21,7 +21,7 @@ const SearchProd = () => {
 		setIsLoading(true);
 		try {
 			await axios
-				.post(`api/getSearchProds`, {
+				.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/api/getSearchProds`, {
 					searchString,
 				})
 				.then((res) => setProducts(res.data.products))
