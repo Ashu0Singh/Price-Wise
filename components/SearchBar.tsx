@@ -12,7 +12,7 @@ interface Response {
 
 const SearchBar = () => {
 	const [searchPrompt, setSearchPrompt] = useState(
-		"https://www.amazon.in/ASUS-PA278QV-DisplayPort-Anti-Glare-Adjustable/dp/B088BC5HMM"
+		""
 	);
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
