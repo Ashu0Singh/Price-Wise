@@ -1,20 +1,4 @@
 <!---->
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@800&family=Work+Sans:wght@300&display=swap');
-  div{
-   font-family: 'Work Sans', sans-serif;
-   letter-spacing:0.4px
-  }
-  h1{
-   font-family: 'Schibsted Grotesk', sans-serif;
-   margin: 0px;
-   letter-spacing:-0.4px
-  }
-  h2{
-    font-family: 'Schibsted Grotesk', sans-serif;
-  }
-</style>
 <div align="center">
     <h1 style="margin-bottom: 0px">Pricewise</h1>
     <p>Smart Shopping Starts Here </p>
