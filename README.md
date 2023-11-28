@@ -9,9 +9,7 @@
   </a>
 </p>
 
----
-
-<h2>📖 Table of Contents</h2>
+## 📖 Table of Contents
 
 -   [📖 Table of Contents](#-table-of-contents)
 -   [📍 Overview](#-overview)
@@ -27,13 +25,11 @@
 -   [📄 License](#-license)
 -   [👏 Acknowledgments](#-acknowledgments)
 
----
 
 ## 📍 Overview
 
 Price Wise is a web application designed to assist users in tracking product prices and searching for products. It provides a streamlined user interface with components like a search bar, product cards, and price tracking functionality. Users can receive email notifications for price changes through an integrated email system. The application includes a cron job for daily price updates and utilizes web scraping to gather product details from online stores. With a focus on user experience, Price Wise offers a practical solution for savvy shoppers looking to stay informed about the best deals.
 
----
 
 ## 📦 Features
 
@@ -49,7 +45,6 @@ Price Wise is a web application designed to assist users in tracking product pri
 | 🔌  | **Integrations**    | Email notification system and scraper indicate integration with email services and Amazon for product data.           |
 | 📶  | **Scalability**     | Next.js framework supports scalability; no specific architectural patterns mentioned for handling significant growth. |
 
----
 
 ## 📂 Repository Structure
 
@@ -98,7 +93,6 @@ Price Wise is a web application designed to assist users in tracking product pri
 
 ```
 
----
 
 ## ⚙️ Modules
 
@@ -221,13 +215,12 @@ Price Wise is a web application designed to assist users in tracking product pri
 
 **_Dependencies_**
 
-Please ensure you have the following dependencies installed on your system:
+List of Dependencies
 
-`- ℹ️ Dependency 1`
-
-`- ℹ️ Dependency 2`
-
-`- ℹ️ ...`
+```json
+node >=v18.12.0
+npm or yarn
+```
 
 ### 🔧 Installation
 
@@ -275,7 +268,7 @@ npm test
 
 Contributions are welcome! Here are several ways you can contribute:
 
--   **[Submit Pull Requests](https://github.com/ashu0singh/price-wise/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+-   **[Submit Pull Requests](https://github.com/ashu0singh/price-wise/)**: Review open PRs, and submit your own PRs.
 -   **[Join the Discussions](https://github.com/ashu0singh/price-wise/discussions)**: Share your insights, provide feedback, or ask questions.
 -   **[Report Issues](https://github.com/ashu0singh/price-wise/issues)**: Submit bugs found or log feature requests for Ashu0Singh.
 
