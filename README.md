@@ -268,9 +268,9 @@ npm test
 
 Contributions are welcome! Here are several ways you can contribute:
 
--   **[Submit Pull Requests](https://github.com/ashu0singh/price-wise/)**: Review open PRs, and submit your own PRs.
--   **[Join the Discussions](https://github.com/ashu0singh/price-wise/discussions)**: Share your insights, provide feedback, or ask questions.
--   **[Report Issues](https://github.com/ashu0singh/price-wise/issues)**: Submit bugs found or log feature requests for Ashu0Singh.
+-   **[Submit Pull Requests](https://github.com/Ashu0Singh/Price-Wise/pulls)**: Review open PRs, and submit your own PRs.
+-   **[Join the Discussions](https://github.com/Ashu0Singh/Price-Wise/discussions)**: Share your insights, provide feedback, or ask questions.
+-   **[Report Issues](https://github.com/Ashu0Singh/Price-Wise/issues)**: Submit bugs found or log feature requests for Ashu0Singh.
 
 > Contact Details <br />
 > Email : [work@ashu-singh.com](mailto:work@ashu-singh.com) <br />
