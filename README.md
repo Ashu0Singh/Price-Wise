@@ -217,7 +217,7 @@ Price Wise is a web application designed to assist users in tracking product pri
 
 List of Dependencies
 
-```json
+```js
 node >=v18.12.0
 npm or yarn
 ```
